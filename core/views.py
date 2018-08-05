@@ -12,7 +12,9 @@ def index(request):
 
 
 def login_view(request):
-    if request.method == 'POST':
+    if request.method != 'POST':
+        form = AuthenticationForm()
+    else:
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -23,8 +25,6 @@ def login_view(request):
                 'Olá, {}, seu login foi efetuado com sucesso'.format(request.user)
             )
             return redirect('core:index')
-    else:
-        form = AuthenticationForm()
     return render(request, 'core/login.html', {'login_form': form})
 
 
@@ -34,17 +34,14 @@ def logout_view(request):
 
 
 def register_view(request):
-    if request.method == 'POST':
+    if request.method != 'POST':
+        form = UserCreationForm()
+    else:
         form = UserCreationForm(request.POST)
-        context = {'form': form}
         if form.is_valid():
             user = form.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('core:index')
-        else:
-            if form.errors:
-                return render(request, 'core/register.html', context)
-    else:
-        form = UserCreationForm()
-        context = {'form': form}
-        return render(request, 'core/register.html', context)
+    return render(request, 'core/register.html', {
+        'form': form,
+    })
