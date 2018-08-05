@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Investimentos</h1>
+        <p class="lead">Veja aqui todas informações sobre seus investimentos</p>
+    </div>
+    <div class="container">
+        {% if investments.exists %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Natureza</th>
+                        <th scope="col">Aporte inicial</th>
+                        <th scope="col">Data do aporte</th>
+                        <th scope="col">Data de vencimento</th>
+                        <th scope="col">Representatividade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for investment in investments %}
+                        <tr>
+                            <td>{{ investment.title|default:'' }}</td>
+                            <td>{{ investment.nature|default:'' }}</td>
+                            <td>R$ {{ investment.initial_amount|intcomma|default:'0,00' }}</td>
+                            <td>{{ investment.date_initial_amount|date:'d/m/Y'|default:'' }}</td>
+                            <td>{{ investment.due_date|date:'d/m/Y'|default:'' }}</td>
+                            <td>{{ investment.representativeness|default:'' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-danger text-center" role="alert">
+                Nenhum investimento cadastrado!
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
