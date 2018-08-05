@@ -1,23 +1,23 @@
 from django.contrib import admin
-from investments.models import Investment, Profitable
+from investments.models import Investment, Index
 
 
 # Register your models here.
 @admin.register(Investment)
 class InvestmentAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'title', 'nature', 'broker', 'due_date', 'representativeness'
+        'title', 'nature', 'broker', 'due_date', 'representativeness', 'user',
     )
     list_filter = (
-        'user', 'nature', 'broker',
+        'nature', 'broker', 'user',
     )
     search_fields = (
         'user', 'title', 'nature',
     )
 
 
-@admin.register(Profitable)
-class ProfitableAdmin(admin.ModelAdmin):
+@admin.register(Index)
+class IndexAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'ipca', 'cdi', 'selic', 'flat_rate',
+        'title', 'rate', 'period_from', 'period_until',
     )
