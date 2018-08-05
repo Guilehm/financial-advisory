@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -8,11 +10,18 @@ class Investment(models.Model):
     title = models.CharField(verbose_name='Nome', max_length=100)
     nature = models.CharField(verbose_name='Natureza', max_length=100)
     initial_amount = models.DecimalField(verbose_name='Aporte inicial', max_digits=10, decimal_places=2)
-    profitability = models.ForeignKey(
-        'investments.Profitable',
-        verbose_name='Rentabilidade',
+    index = models.ForeignKey(
+        'investments.Index',
+        verbose_name='Índice',
         related_name='investments',
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+    rate = models.DecimalField(
+        verbose_name='Percentual',
+        max_digits=5,
+        decimal_places=2,
         blank=True,
         null=True,
     )
@@ -68,19 +77,38 @@ class Investment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
 
+    @property
+    def calculate_percentage(self):
+        return (self.rate * self.index.rate) or Decimal('0.0')
 
-class Profitable(models.Model):
-    title = models.CharField(verbose_name='Nome', max_length=100)
-    ipca = models.DecimalField(verbose_name='IPCA', max_digits=5, decimal_places=2, null=True, blank=True)
-    cdi = models.DecimalField(verbose_name='CDI', max_digits=5, decimal_places=2, null=True, blank=True)
-    selic = models.DecimalField(verbose_name='SELIC', max_digits=5, decimal_places=2, null=True, blank=True)
-    flat_rate = models.DecimalField(verbose_name='Taxa fixa', max_digits=5, decimal_places=2, null=True, blank=True)
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name='Investimento'
+        verbose_name_plural='Investimentos'
+
+
+class Equity(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+class Index(models.Model):
+    title = models.CharField(verbose_name='Nome', max_length=50)
+    rate = models.DecimalField(
+        verbose_name='Percentual',
+        max_digits=5,
+        decimal_places=2,
+    )
     period_from = models.DateTimeField(verbose_name='Período inicial', null=True, blank=True)
     period_until = models.DateTimeField(verbose_name='Período Final', null=True, blank=True)
 
     date_added = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
 
-class Equity(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name='Índice'
+        verbose_name_plural='Índices'
