@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
 
+from investments.models import Investment
+
 
 # Create your views here.
 def index(request):
@@ -44,4 +46,11 @@ def register_view(request):
             return redirect('core:index')
     return render(request, 'core/register.html', {
         'form': form,
+    })
+
+
+def investment_list(request):
+    investments = Investment.objects.filter(user=request.user)
+    return render(request, 'core/investments.html', {
+        'investments': investments,
     })
