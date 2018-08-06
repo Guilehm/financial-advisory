@@ -16,6 +16,7 @@
                         <th scope="col">Data do aporte</th>
                         <th scope="col">Data de vencimento</th>
                         <th scope="col">Representatividade</th>
+                        <th scope="col">Rentabilidade</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,7 @@
                             <td>{{ investment.date_initial_amount|date:'d/m/Y'|default:'' }}</td>
                             <td>{{ investment.due_date|date:'d/m/Y'|default:'' }}</td>
                             <td>{{ investment.representativeness|default:'' }}</td>
+                            <td>{{ investment.calculate_percentage|default:'' }}%</td>
                         </tr>
                     {% endfor %}
                 </tbody>
