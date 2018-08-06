@@ -79,7 +79,7 @@ class Investment(models.Model):
 
     @property
     def calculate_percentage(self):
-        return (self.rate * self.index.rate) or Decimal('0.0')
+        return (self.rate * (self.index.rate / 100)) or Decimal('0.0')
 
     def __str__(self):
         return self.title
