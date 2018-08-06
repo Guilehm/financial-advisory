@@ -78,7 +78,7 @@ class Investment(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
 
     @property
-    def calculate_percentage(self):
+    def calculate_profitability(self):
         return (self.rate * (self.index.rate / 100)) or Decimal('0.0')
 
     def __str__(self):
