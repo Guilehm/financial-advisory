@@ -1,5 +1,5 @@
 from django.contrib import admin
-from investments.models import Investment, Index
+from investments.models import Investment, Index, IndexItem
 
 
 # Register your models here.
@@ -18,6 +18,13 @@ class InvestmentAdmin(admin.ModelAdmin):
 
 @admin.register(Index)
 class IndexAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+    list_filter = ('title', 'date_added', )
+    search_fields = ('title', )
+
+
+@admin.register(IndexItem)
+class IndexItemAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'rate', 'period_from', 'period_until',
+        'index', 'rate', 'period_from', 'period_until',
     )
