@@ -1,7 +1,8 @@
 from decimal import Decimal
 
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
+from django.utils import timezone
 
 
 # Create your models here.
@@ -81,6 +82,41 @@ class Investment(models.Model):
     def calculate_profitability(self):
         return Decimal(self.rate * (self.index.rate / 100)) or Decimal('0.0')
 
+    @property
+    def diff_month(self):
+        initial = self.date_initial_amount
+        now = timezone.now()
+        return (now.year - initial.year) * 12 + now.month - initial.month
+
+    @property
+    def calculate(self):
+        month = self.date_initial_amount.month
+        year = self.date_initial_amount.year
+        profitability = 0
+        print('primeiro mes', month)
+        print('primeiro ano', year)
+        import pdb; pdb.set_trace()
+        for i in range(self.diff_month):
+            print('qtd loop', self.diff_month)
+            # TODO: Implement try and exception
+            index_item = IndexItem.objects.get(
+                index__title=self.index.title,
+                period_from__year=year,
+                period_from__month=month,
+            )
+            print('aqui é o index 107', index_item, index_item.rate)
+            print('mês antes', month)
+            print('ano antes', year)
+            month += 1
+            if month == 13:
+                month = 1
+                year += 1
+            print('mês depois', month)
+            print('ano depois', year)
+            profitability += self.initial_amount * (index_item.rate / 100)
+            print('rentabilidade', profitability)
+
+
     def __str__(self):
         return self.title
 
@@ -94,7 +130,21 @@ class Equity(models.Model):
 
 
 class Index(models.Model):
-    title = models.CharField(verbose_name='Nome', max_length=50)
+    title = models.CharField(verbose_name='Índice', max_length=30, db_index=True)
+
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_changed = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name='Índice'
+        verbose_name_plural='Índices'
+
+
+class IndexItem(models.Model):
+    index = models.ForeignKey(Index, verbose_name='Índice', on_delete=models.CASCADE)
     rate = models.DecimalField(
         verbose_name='Percentual',
         max_digits=5,
@@ -107,8 +157,8 @@ class Index(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.index.title
 
     class Meta:
-        verbose_name='Índice'
-        verbose_name_plural='Índices'
+        verbose_name='Índice Mensal'
+        verbose_name_plural='Índices Mensais'
