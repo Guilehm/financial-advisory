@@ -79,7 +79,7 @@ class Investment(models.Model):
 
     @property
     def calculate_profitability(self):
-        return (self.rate * (self.index.rate / 100)) or Decimal('0.0')
+        return Decimal(self.rate * (self.index.rate / 100)) or Decimal('0.0')
 
     def __str__(self):
         return self.title
