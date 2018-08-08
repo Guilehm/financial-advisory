@@ -117,6 +117,9 @@ class Investment(models.Model):
                 count = last_month_day - day
                 result = (value * (rate * index_item.rate / 10000)) / last_month_day * count
                 profitability += (value * (rate * index_item.rate / 10000)) / last_month_day * count
+            else:
+                result = value * (rate * index_item.rate / 10000)
+                profitability += value * (rate * index_item.rate / 10000)
 
 
     def __str__(self):
