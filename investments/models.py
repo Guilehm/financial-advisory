@@ -186,6 +186,13 @@ class IndexItem(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        return "{index} - {month_from:02d}/{year_from} - {month_until:02d}/{year_until}".format(
+            index=self.index.title,
+            month_from=self.period_from.month,
+            year_from=self.period_from.year,
+            month_until=self.period_until.month,
+            year_until=self.period_until.year
+        )
 
     class Meta:
         verbose_name='Índice Mensal'
