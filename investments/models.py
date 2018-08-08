@@ -124,6 +124,9 @@ class Investment(models.Model):
             value += result
         return profitability
 
+    @property
+    def calculate_profitability(self):
+        return (self.calculate_income / self.initial_amount) * 100
 
     def __str__(self):
         return self.title
