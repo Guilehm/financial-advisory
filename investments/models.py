@@ -11,6 +11,12 @@ class Investment(models.Model):
     title = models.CharField(verbose_name='Nome', max_length=100)
     nature = models.CharField(verbose_name='Natureza', max_length=100)
     initial_amount = models.DecimalField(verbose_name='Aporte inicial', max_digits=10, decimal_places=2)
+    nature = models.ForeignKey(
+        'investments.Nature',
+        verbose_name='Natureza',
+        related_name='investments',
+        on_delete=models.CASCADE,
+    )
     index = models.ForeignKey(
         'investments.Index',
         verbose_name='Índice',
