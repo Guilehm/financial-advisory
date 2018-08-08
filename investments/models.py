@@ -105,16 +105,12 @@ class Investment(models.Model):
         rate = self.rate
         value = self.initial_amount
         for i in range(self.diff_month):
-            print('qtd loop', self.diff_month)
             # TODO: Implement try and exception
             index_item = IndexItem.objects.get(
                 index__title=self.index.title,
                 period_from__year=year,
                 period_from__month=month,
             )
-            print('aqui é o index 107', index_item, index_item.rate)
-            print('mês antes', month)
-            print('ano antes', year)
             month += 1
             if month == 13:
                 month = 1
