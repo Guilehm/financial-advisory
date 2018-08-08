@@ -186,7 +186,6 @@ class IndexItem(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.index.title
 
     class Meta:
         verbose_name='Índice Mensal'
