@@ -139,6 +139,9 @@ class Investment(models.Model):
 class Equity(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Patrimônio'
+        verbose_name_plural = 'Patrimônios'
 
 class Index(models.Model):
     title = models.CharField(verbose_name='Índice', max_length=30, db_index=True)
