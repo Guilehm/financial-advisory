@@ -120,6 +120,9 @@ class Investment(models.Model):
             else:
                 result = value * (rate * index_item.rate / 10000)
                 profitability += value * (rate * index_item.rate / 10000)
+            first = False
+            value += result
+        return profitability
 
 
     def __str__(self):
