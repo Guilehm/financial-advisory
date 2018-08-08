@@ -1,5 +1,5 @@
 from django.contrib import admin
-from investments.models import Investment, Index, IndexItem
+from investments.models import Investment, Index, IndexItem, Nature
 
 
 # Register your models here.
@@ -14,6 +14,13 @@ class InvestmentAdmin(admin.ModelAdmin):
     search_fields = (
         'user', 'title', 'nature',
     )
+
+
+@admin.register(Nature)
+class NatureAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+    list_filter = ('title', 'date_added', )
+    search_fields = ('title', )
 
 
 @admin.register(Index)
