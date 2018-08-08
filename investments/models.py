@@ -143,6 +143,16 @@ class Equity(models.Model):
         verbose_name = 'Patrimônio'
         verbose_name_plural = 'Patrimônios'
 
+
+class Nature(models.Model):
+    title = models.CharField(verbose_name='Natureza', max_length=50, db_index=True)
+
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_changed = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
 class Index(models.Model):
     title = models.CharField(verbose_name='Índice', max_length=30, db_index=True)
 
