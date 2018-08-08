@@ -101,9 +101,9 @@ class Investment(models.Model):
         year = date.year
         _, last_month_day = calendar.monthrange(year, month)
         profitability = 0
-        print('primeiro mes', month)
-        print('primeiro ano', year)
-        import pdb; pdb.set_trace()
+        first = True
+        rate = self.rate
+        value = self.initial_amount
         for i in range(self.diff_month):
             print('qtd loop', self.diff_month)
             # TODO: Implement try and exception
