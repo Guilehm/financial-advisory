@@ -94,9 +94,7 @@ class Investment(models.Model):
         return (now.year - initial.year) * 12 + now.month - initial.month
 
     @property
-    def calculate(self):
-        month = self.date_initial_amount.month
-        year = self.date_initial_amount.year
+    def calculate_income(self):
         profitability = 0
         print('primeiro mes', month)
         print('primeiro ano', year)
