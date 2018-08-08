@@ -153,6 +153,11 @@ class Nature(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Natureza'
+        verbose_name_plural = 'Naturezas'
+
+
 class Index(models.Model):
     title = models.CharField(verbose_name='Índice', max_length=30, db_index=True)
 
