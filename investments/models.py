@@ -113,10 +113,6 @@ class Investment(models.Model):
             if month == 13:
                 month = 1
                 year += 1
-            print('mês depois', month)
-            print('ano depois', year)
-            profitability += self.initial_amount * (index_item.rate / 100)
-            print('rentabilidade', profitability)
 
 
     def __str__(self):
