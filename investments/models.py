@@ -95,6 +95,11 @@ class Investment(models.Model):
 
     @property
     def calculate_income(self):
+        date = self.date_initial_amount
+        day = date.day
+        month = date.month
+        year = date.year
+        _, last_month_day = calendar.monthrange(year, month)
         profitability = 0
         print('primeiro mes', month)
         print('primeiro ano', year)
