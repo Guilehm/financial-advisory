@@ -110,6 +110,8 @@ class Investment(models.Model):
                 index__title=self.index.title,
                 period_from__year=year,
                 period_from__month=month,
+                period_until__year=year,
+                period_until__month=month,
             )
             month += 1
             if month == 13:
