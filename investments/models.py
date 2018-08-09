@@ -168,8 +168,8 @@ class Index(models.Model):
         return self.title
 
     class Meta:
-        verbose_name='Índice'
-        verbose_name_plural='Índices'
+        verbose_name = 'Índice'
+        verbose_name_plural = 'Índices'
 
 
 class IndexItem(models.Model):
