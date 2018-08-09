@@ -116,9 +116,9 @@ class Investment(models.Model):
                 month = 1
                 year += 1
             if first:
-                count = last_month_day - day
-                result = (value * (rate * index_item.rate / 10000)) / last_month_day * count
-                profitability += (value * (rate * index_item.rate / 10000)) / last_month_day * count
+                count = last_month_day - day + 1
+                result = (value * (rate * index_item.rate / 10000)) / last_month_day * (count)
+                profitability += (value * (rate * index_item.rate / 10000)) / last_month_day * (count)
             else:
                 result = value * (rate * index_item.rate / 10000)
                 profitability += value * (rate * index_item.rate / 10000)
