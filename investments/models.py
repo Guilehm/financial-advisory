@@ -132,8 +132,8 @@ class Investment(models.Model):
         return self.title
 
     class Meta:
-        verbose_name='Investimento'
-        verbose_name_plural='Investimentos'
+        verbose_name = 'Investimento'
+        verbose_name_plural = 'Investimentos'
 
 
 class Equity(models.Model):
