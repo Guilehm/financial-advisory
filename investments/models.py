@@ -92,7 +92,7 @@ class Investment(models.Model):
         return (now.year - initial.year) * 12 + now.month - initial.month
 
     @property
-    def calculate_income(self):
+    def income(self):
         date = self.date_initial_amount
         day = date.day
         month = date.month
