@@ -1,5 +1,6 @@
 from django.contrib import admin
-from investments.models import Investment, Index, IndexItem, Nature
+
+from investments.models import Index, IndexItem, Investment, Nature
 
 
 # Register your models here.
