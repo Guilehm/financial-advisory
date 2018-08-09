@@ -27,8 +27,6 @@
                             <td>R$ {{ investment.initial_amount|intcomma|default:'0,00' }}</td>
                             <td>{{ investment.date_initial_amount|date:'d/m/Y'|default:'' }}</td>
                             <td>{{ investment.due_date|date:'d/m/Y'|default:'' }}</td>
-                            <td>{{ investment.representativeness|default:'' }}</td>
-                            <td>{{ investment.calculate_profitability|floatformat:2|default:'' }}%</td>
                         </tr>
                     {% endfor %}
                 </tbody>
