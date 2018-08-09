@@ -1,9 +1,9 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from investments.models import Investment
 
