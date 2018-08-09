@@ -195,5 +195,5 @@ class IndexItem(models.Model):
         )
 
     class Meta:
-        verbose_name='Índice Mensal'
-        verbose_name_plural='Índices Mensais'
+        verbose_name = 'Índice Mensal'
+        verbose_name_plural = 'Índices Mensais'
