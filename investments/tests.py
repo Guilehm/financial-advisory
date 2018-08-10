@@ -1,7 +1,7 @@
-from django.test import Client, TestCase
+from django.test import TestCase
 from model_mommy import mommy
 
-from investments.models import Investment, Equity, Nature, Index, IndexItem
+from investments.models import Equity, Index, IndexItem, Investment, Nature
 
 
 class InvestmentTestCase(TestCase):
