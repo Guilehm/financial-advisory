@@ -7,9 +7,13 @@ from investments.models import Investment, Equity, Nature, Index, IndexItem
 class InvestmentTestCase(TestCase):
 
     def setUp(self):
-        self.investment = mommy.make('investments.Investment', _quantity=1)
+        self.nature = mommy.make('investments.Nature')
+        self.index = mommy.make('investments.Index')
         self.equity = mommy.make('investments.Equity')
-        self.index_item = mommy.make('investments.IndexItem')
+        self.index_item = mommy.make('investments.IndexItem', index=self.index)
+        self.investment = mommy.make(
+            'investments.Investment', nature=self.nature, index=self.index
+        )
 
     def test_create_investment(self):
         self.assertEquals(Investment.objects.count(), 1)
