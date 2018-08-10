@@ -1,4 +1,6 @@
 from django.test import TestCase, Client
+from django.contrib.auth.models import User
+from financial_advisory import settings
 from model_mommy import mommy
 
 from investments.models import Equity, Index, IndexItem, Investment, Nature
@@ -31,10 +33,23 @@ class InvestmentTestCase(TestCase):
         self.assertEquals(Investment.objects.count(), 1)
 
 
-class HomeTestView(TestCase):
+class PagesTestView(TestCase):
 
-    def test_homepage(self):
+    def setUp(self):
+        self.client = Client()
+        self.user = mommy.prepare(User, username='guilherme')
+        self.user.set_password('password')
+        self.user.save()
+        self.client.login(username='guilherme', password='password')
+
+    def test_home_page(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'core/base.html')
         self.assertTemplateUsed(response, 'core/index.html')
+
+    def test_investments_page(self):
+        response = self.client.get('/investments/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/base.html')
+        self.assertTemplateUsed(response, 'core/investments.html')
