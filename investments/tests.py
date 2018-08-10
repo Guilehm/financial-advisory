@@ -36,3 +36,5 @@ class HomeTestView(TestCase):
     def test_homepage(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'core/base.html')
+        self.assertTemplateUsed(response, 'core/index.html')
