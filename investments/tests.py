@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from model_mommy import mommy
 
 from investments.models import Equity, Index, IndexItem, Investment, Nature
@@ -29,3 +29,10 @@ class InvestmentTestCase(TestCase):
 
     def test_create_investment(self):
         self.assertEquals(Investment.objects.count(), 1)
+
+
+class HomeTestView(TestCase):
+
+    def test_homepage(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
