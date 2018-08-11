@@ -1,1 +1,1 @@
-web: gunicorn financial-advisory.wsgi --log-file -
+web: gunicorn financial_advisory.wsgi --log-file -
