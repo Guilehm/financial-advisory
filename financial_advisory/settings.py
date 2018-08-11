@@ -125,6 +125,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Heroku configs
 if os.getcwd() == '/app':
+    DEBUG = False
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.config(default='postgres://localhost')
